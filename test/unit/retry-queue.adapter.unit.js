@@ -1,12 +1,14 @@
 /*
+
   Unit tests for the retry-queue library.
+
 */
 
 import chai from 'chai'
 import sinon from 'sinon'
 
 // const BCHJS = require('@psf/bch-js')
-import RetryQueue from '../../src/lib/retry-queue.mjs'
+import RetryQueue from '../../lib/retry-queue.js'
 
 const assert = chai.assert
 
@@ -162,8 +164,17 @@ describe('#retry-queue.js', () => {
         assert.fail('unexpected code path')
       } catch (err) {
         // console.log(err)
-        assert.include(err.message, 'Cannot read property')
+        assert.include(err.message, 'Cannot read properties')
       }
+    })
+  })
+
+  describe('#sleep', () => {
+    it('should sleep for 1 ms', async () => {
+      await uut.sleep(1)
+
+      // Not throwing an error is a success.
+      assert.equal(true, true)
     })
   })
 })

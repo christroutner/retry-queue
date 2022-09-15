@@ -5,20 +5,15 @@
 
 /* eslint-disable no-async-promise-executor */
 
-import BCHJS from '@psf/bch-js'
+import RetryQueue from './lib/retry-queue.js'
 
-import Util from './lib/util.js'
-const util = new Util()
+// class BoilerplateLib {
+//   constructor () {
+//     _this = this
+//
+//     _this.bchjs = new BCHJS()
+//     _this.util = util
+//   }
+// }
 
-let _this // local global for 'this'.
-
-class BoilerplateLib {
-  constructor () {
-    _this = this
-
-    _this.bchjs = new BCHJS()
-    _this.util = util
-  }
-}
-
-export default BoilerplateLib
+export default RetryQueue
