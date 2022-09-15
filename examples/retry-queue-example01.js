@@ -2,7 +2,7 @@
   This provides a simple example of how to use this retry queue.
 
   longRunningProcess() is a Promise-based function. It lasts for 2-5 seconds and
-  it has a 25% change of failing.
+  it has a 25% chance of failing.
 
   A new longRunningProcess() is added to the queue as soon as the previous one
   completes. Awaiting on the queue will wait until the queue is empty before
@@ -21,6 +21,7 @@ const options = {
 }
 const retryQueue = new RetryQueue(options)
 
+// Example function using the retry-queue.
 async function retryQueueExample () {
   try {
     // Generate 10 processes.
@@ -33,7 +34,9 @@ async function retryQueueExample () {
         startedOn: now.toLocaleString()
       }
 
-      // Add the process to the queue
+      // Add the process to the queue.
+      // Omit the await to load up the queue quickly and allow its internal
+      // concurrency logic to drive execution.
       await retryQueue.addToQueue(longRunningProcess, processObj)
     }
   } catch (err) {
@@ -58,7 +61,11 @@ async function longRunningProcess (inObj = {}) {
   // Wait an additional 0-3 seconds
   await retryQueue.sleep(rndNum2)
 
-  console.log(`longRunningProcess() ${inObj.index} completed with input object ${JSON.stringify(inObj, null, 2)}`)
+  // Add a timestamp for when the process completed.
+  const now = new Date()
+  inObj.stoppedOn = now.toLocaleString()
+
+  console.log(`longRunningProcess() ${inObj.index + 1} completed with input object ${JSON.stringify(inObj, null, 2)}`)
 
   return true
 }
