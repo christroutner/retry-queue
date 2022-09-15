@@ -35,7 +35,8 @@
   "repository": "christroutner/retry-queue",
   "dependencies": {
     "@psf/bch-js": "6.4.5",
-    "apidoc": "0.53.0"
+    "apidoc": "0.53.0",
+    "p-queue": "7.3.0"
   },
   "devDependencies": {
     "c8": "7.12.0",
